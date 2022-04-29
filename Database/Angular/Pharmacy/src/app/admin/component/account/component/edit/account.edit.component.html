@@ -1,0 +1,83 @@
+<div class="card">
+  <p-toolbar styleClass="mb-2">
+          <ng-template pTemplate="left">    
+            <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+            <button pButton pRipple label="Detail" icon="pi pi-folder-open" class="p-button-success mr-2" (click)="detail()"></button>    
+  </ng-template>
+  </p-toolbar>
+  
+  
+  
+  <section class="content">
+     <div class="container-fluid">
+        <div class="row justify-content-around">
+           <div class="col-md-11">
+              <div class="card card-primary">
+                 <div class="card-header">
+                    <h3 class="card-title">Edit Account</h3>
+                 </div>
+                 <div>
+                 <form method="put" [formGroup]="editAccountForm" (ngSubmit)="update()">                   
+                    <div class="card-body">                     
+                      
+                      <div class="form-group">
+                        <label for="id">Account ID</label>
+                        <input type="text" class="form-control" id="id" formControlName="id" readonly>
+                     </div>
+
+                       <div class="form-group">
+                          <label for="userename">Username</label>
+                          <input type="text" class="form-control" id="username" formControlName="username">
+                          <div>
+                             <div *ngIf="editAccountForm.get('userename').touched">
+                                <div *ngIf="editAccountForm.hasError('required', ['username'])">
+                                   This field is required.
+                                </div>
+                                <div *ngIf="editAccountForm.hasError('maxLength', ['username'])">
+                                   Please enter no more than 250 characters.
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                       <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" formControlName="email">
+                        <div>
+                           <div *ngIf="editAccountForm.get('email').touched">
+                              <div *ngIf="editAccountForm.hasError('required', ['email'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="editAccountForm.hasError('maxLength', ['email'])">
+                                 Please enter a valid email address.
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                       <div class="form-group">
+                        <label>Select Role</label>
+                        <select class="form-control" formControlName="roleId">
+                            <option *ngFor="let role of roles" value="{{role.id}}">{{role.name}}</option>
+                        </select>
+                     </div>
+                                             
+                       <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="status" formControlName="status">
+                          <label class="form-check-label" for="status">Active</label>
+                       </div> 
+                       <br>                     
+                       
+                    </div>
+                    <div class="card-footer">
+                       <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                 </form>
+                </div>                
+              </div>             
+             </div>                  
+        </div>
+     </div>
+  </section>
+  </div>
+  <p-dialog header="Update" [(visible)]="display">
+    Done
+ </p-dialog>

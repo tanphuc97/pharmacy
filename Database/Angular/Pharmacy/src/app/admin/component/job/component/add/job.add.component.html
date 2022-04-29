@@ -1,0 +1,95 @@
+<div class="card">
+  <p-toolbar styleClass="mb-2">
+          <ng-template pTemplate="left"> 
+          <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>         
+  </ng-template>
+  </p-toolbar>
+  
+  
+  
+  <section class="content">
+     <div class="container-fluid">
+        <div class="row justify-content-around">
+           <div class="col-md-11">
+              <div class="card card-primary">
+                 <div class="card-header">
+                    <h3 class="card-title">Add Job</h3>
+                 </div>
+                 <div>
+                 <form method="post" [formGroup]="addJobForm" (ngSubmit)="saveJob()">                   
+                    <div class="card-body">                     
+                       
+                       <div class="form-group">
+                          <label for="jobName">Job Name</label>
+                          <input type="text" class="form-control" id="jobName" formControlName="jobName">
+                          <div>
+                             <div *ngIf="addJobForm.get('jobName').touched">
+                                <div *ngIf="addJobForm.hasError('required', ['jobName'])">
+                                   This field is required.
+                                </div>
+                                <div *ngIf="addJobForm.hasError('maxLength', ['jobName'])">
+                                   Please enter no more than 250 characters.
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                       <div class="form-group">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" formControlName="location">
+                        <div>
+                           <div *ngIf="addJobForm.get('location').touched">
+                              <div *ngIf="addJobForm.hasError('required', ['location'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="addJobForm.hasError('maxLength', ['location'])">
+                                 Please enter no more than 250 characters.
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                      <label for="salary">Salary</label>
+                      <input type="text" class="form-control" id="salary" formControlName="salary">
+                      <div>
+                         <div *ngIf="addJobForm.get('salary').touched">
+                            <div *ngIf="addJobForm.hasError('required', ['salary'])">
+                               This field is required.
+                            </div>
+                            <div *ngIf="addJobForm.hasError('maxLength', ['salary'])">
+                               Please enter no more than 250 characters.
+                            </div>
+                         </div>
+                      </div>
+                   </div>
+                        
+                       <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="status" formControlName="status">
+                          <label class="form-check-label" for="status">Active</label>
+                       </div> 
+                       <br>                     
+                       <div class="form-group">
+                        <label for="description">Description</label>
+                         <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                         <div>
+                          <div *ngIf="addJobForm.get('description').touched">
+                             <div *ngIf="addJobForm.hasError('required', ['description'])">
+                                This field is required.
+                             </div>
+                          </div>
+                          </div>
+                   </div>
+                    </div>
+                    <div class="card-footer">
+                       <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                 </form>
+                </div>                
+              </div>             
+             </div>                  
+        </div>
+     </div>
+  </section>
+  </div>
+  <p-dialog header="Create new job" [(visible)]="display">
+    Done
+ </p-dialog>

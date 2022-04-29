@@ -1,0 +1,310 @@
+<div id="header-carousel" class="carousel slide carousel-fade" data-ride="carousel">
+    <!--/.carousel-indicator -->
+     <ol class="carousel-indicators">
+      <li data-target="#header-carousel" data-slide-to="0" class="active"><span class="small-circle"></span></li>
+      <li data-target="#header-carousel" data-slide-to="1"><span class="small-circle"></span></li>
+      <li data-target="#header-carousel" data-slide-to="2"><span class="small-circle"></span></li>
+    </ol><!-- /ol-->
+    <!--/.carousel-indicator -->
+
+    <!--/.carousel-inner -->
+	<div class="carousel-inner" role="listbox">
+		<!-- .item -->
+		<div class="item active">
+		  <div class="single-slide-item slide1">
+			<div class="container">
+			  <div class="welcome-hero-content">
+				<div class="row">
+				  <div class="col-sm-7">
+					<div class="single-welcome-hero">
+					  <div class="welcome-hero-txt">
+						<h4>great design collection</h4>
+						<h2>{{productsCaro[0].name}}</h2>
+						<p [innerHTML]="productsCaro[0].description"> /p>
+						<div class="packages-price">
+						  <p>
+							$ {{productsCaro[0].price}}
+							<del>$ {{productsCaro[0].price+500}}</del>
+						  </p>
+						</div>
+						<button class="btn-cart welcome-add-cart" [routerLink]="['/main/client' , {id:productsCaro[0].id}]">
+							<span class="lnr lnr-plus-circle"></span>
+							Buy <span> now</span> 
+						  </button>
+						  
+					  </div><!--/.welcome-hero-txt-->
+					</div><!--/.single-welcome-hero-->
+				  </div><!--/.col-->
+				  <div class="col-sm-5">
+					<div class="single-welcome-hero">
+					  <div class="welcome-hero-img">
+						<img src="{{products[0].url}}" alt="slider image">
+					  </div><!--/.welcome-hero-txt-->
+					</div><!--/.single-welcome-hero-->
+				  </div><!--/.col-->
+				</div><!--/.row-->
+			  </div><!--/.welcome-hero-content-->
+			</div><!-- /.container-->
+		  </div><!-- /.single-slide-item-->
+  
+		</div><!-- /.item .active-->
+  
+		<div class="item">
+		  <div class="single-slide-item ">
+			<div class="container">
+			  <div class="welcome-hero-content">
+				<div class="row">
+				  <div class="col-sm-7">
+					<div class="single-welcome-hero">
+					  <div class="welcome-hero-txt">
+						<h4>great design collection</h4>
+						<h2>$ {{productsCaro[1].name}}</h2>
+						<p [innerHTML]="productsCaro[1].description"> /p>
+						<div class="packages-price">
+						  <p>
+							$ {{productsCaro[1].price}}
+							<del>${{productsCaro[1].price+500}}</del>
+						  </p>
+						</div>
+						<button class="btn-cart welcome-add-cart" [routerLink]="['/main/client' , {id:productsCaro[1].id}]">
+							<span class="lnr lnr-plus-circle"></span>
+							Buy <span>now</span> 
+						  </button>
+						
+					
+					  </div><!--/.welcome-hero-txt-->
+					</div><!--/.single-welcome-hero-->
+				  </div><!--/.col-->
+				  <div class="col-sm-5">
+					<div class="single-welcome-hero">
+					  <div class="welcome-hero-img">
+						<img src="{{products[1].url}}" alt="slider image">
+					  </div><!--/.welcome-hero-txt-->
+					</div><!--/.single-welcome-hero-->
+				  </div><!--/.col-->
+				</div><!--/.row-->
+			  </div><!--/.welcome-hero-content-->
+			</div><!-- /.container-->
+		  </div><!-- /.single-slide-item-->
+  
+		</div><!-- /.item .active-->
+  
+		<div class="item">
+		  <div class="single-slide-item slide3">
+			<div class="container">
+			  <div class="welcome-hero-content">
+				<div class="row">
+				  <div class="col-sm-7">
+					<div class="single-welcome-hero">
+					  <div class="welcome-hero-txt">
+						<h4>great design collection</h4>
+						<h2>{{ productsCaro[2].name}}</h2>
+						<p [innerHTML]="productsCaro[2].description"> /p>
+						<div class="packages-price">
+						  <p>
+							${{ productsCaro[2].price}}
+							<del>$ {{productsCaro[2].price+500}}</del>
+						  </p>
+						</div>
+						<button class="btn-cart welcome-add-cart" [routerLink]="['/main/client' , {id:productsCaro[2].id}]">
+							<span class="lnr lnr-plus-circle"></span>
+							Buy<span>Now</span> 
+						  </button>
+					
+					
+					  </div><!--/.welcome-hero-txt-->
+					</div><!--/.single-welcome-hero-->
+				  </div><!--/.col-->
+				  <div class="col-sm-5">
+					<div class="single-welcome-hero">
+					  <div class="welcome-hero-img">
+						<img src="{{products[2].url}}" alt="slider image">
+					  </div><!--/.welcome-hero-txt-->
+					</div><!--/.single-welcome-hero-->
+				  </div><!--/.col-->
+				</div><!--/.row-->
+			  </div><!--/.welcome-hero-content-->
+			</div><!-- /.container-->
+		  </div><!-- /.single-slide-item-->
+		  
+		</div><!-- /.item .active-->
+	  </div><!-- /.carousel-inner-->
+  
+	 
+<!-- /.carousel-inner-->
+
+</div><!--/#header-carousel-->
+
+		<section id="new-arrivals" class="new-arrivals">
+			<div class="container">
+				<div class="section-header">
+					<h2>new arrivals</h2>
+				</div><!--/.section-header-->
+				<div class="new-arrivals-content" >
+					<div class="row">
+						<div class="col-md-3 col-sm-4"  *ngFor="let product of products">
+							<div class="single-new-arrival">
+								<div class="single-new-arrival-bg">
+									<img src="{{product.url[0]}}" alt="new-arrivals images">
+									<div class="single-new-arrival-bg-overlay"></div>
+									<!-- <div class="sale bg-1">
+										<p>sale</p>
+									</div> -->
+									<div class="new-arrival-cart">
+										<p>
+											<span class="lnr lnr-cart"></span>
+											<button [routerLink]="['/main/client',{id:product.id}]" addtocart>Buy <span>now </span> </button>
+										</p>
+										<p class="arrival-review pull-right">
+											<span class="lnr lnr-heart"></span>
+											<span class="lnr lnr-frame-expand"></span>
+										</p>
+									</div>
+								</div>
+								<h4><button [routerLink]="['/detailproduct',{id:product.id}]" >{{product.name}}</button></h4>
+								<p class="arrival-product-price">${{product.price}}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!--/.container-->
+		
+		</section><!--/.new-arrivals-->
+	
+		<section id="feature" class="feature">
+			<div class="container">
+				<div class="section-header">
+					<h2>Out of stock products</h2>
+				</div><!--/.section-header-->
+				<div class="feature-content">
+					<div class="row">
+						<div class="col-sm-3" *ngFor="let product of productsfalse">
+							<div class="single-new-arrival">
+								<div class="single-new-arrival-bg">
+									<img src="{{product[0].url}}" alt="new-arrivals images">
+									<div class="single-new-arrival-bg-overlay"></div>
+									<!-- <div class="sale bg-1">
+										<p>sale</p>
+									</div> -->
+									<div class="new-arrival-cart">
+									
+										<p class="arrival-review pull-right">
+											<span class="lnr lnr-heart"></span>
+											<span class="lnr lnr-frame-expand"></span>
+										</p>
+									</div>
+								</div>
+								<h4>{{product.name}}</h4>
+								<p class="arrival-product-price">${{product.price}}</p>
+							</div>
+						</div>
+					
+					</div>
+				</div>
+			</div><!--/.container-->
+
+		</section><!--/.feature-->
+		<!--feature end -->
+
+		<!--blog start -->
+		
+		<!--blog end -->
+
+		<!-- clients strat -->
+		<section id="clients"  class="clients">
+			<div class="container">
+				<div class="owl-carousel owl-theme" id="client">
+						<div class="item">
+							<a href="#">
+								<img src="assets/images/clients/c1.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="assets/images/clients/c2.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="assets/images/clients/c3.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="assets/images/clients/c4.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+						<div class="item">
+							<a href="#">
+								<img src="assets/images/clients/c5.png" alt="brand-image" />
+							</a>
+						</div><!--/.item-->
+					</div><!--/.owl-carousel-->
+
+			</div><!--/.container-->
+
+		</section><!--/.clients-->	
+		<!-- clients end -->
+
+		<!--newsletter strat -->
+		<section id="newsletter"  class="newsletter">
+			<div class="container">
+				<div class="hm-footer-details">
+					<div class="row">
+						<div class=" col-md-3 col-sm-6 col-xs-12">
+							<div class="hm-footer-widget">
+								<div class="hm-foot-title">
+									<h4>information</h4>
+								</div><!--/.hm-foot-title-->
+								<div class="hm-foot-menu">
+									<ul>
+										<li><a routerLink="/aboutus">about us</a></li><!--/li-->
+										<li><a routerLink="/contactus">contact us</a></li><!--/li-->
+										<li><a routerLink="/home">news</a></li><!--/li-->
+										<li><a routerLink="/product">store</a></li><!--/li-->
+									</ul><!--/ul-->
+								</div><!--/.hm-foot-menu-->
+							</div><!--/.hm-footer-widget-->
+						</div><!--/.col-->
+						<div class=" col-md-3 col-sm-6 col-xs-12">
+							<div class="hm-footer-widget">
+								<div class="hm-foot-title">
+									<h4>Collections</h4>
+								</div><!--/.hm-foot-title-->
+								<div class="hm-foot-menu">
+									<ul *ngFor="let cate of categories">
+										<li>{{cate.name}}</li><!--/li-->
+										
+									</ul><!--/ul-->
+								</div><!--/.hm-foot-menu-->
+							</div><!--/.hm-footer-widget-->
+						</div><!--/.col-->
+						<div class=" col-md-3 col-sm-6  col-xs-12">
+							<div class="hm-footer-widget">
+								<div class="hm-foot-title">
+									<h4>newsletter</h4>
+								</div><!--/.hm-foot-title-->
+								<div class="hm-foot-para">
+									<p>
+										Subscribe  to get latest news,update and information.
+									</p>
+								</div><!--/.hm-foot-para-->
+								<div class="hm-foot-email">
+									<div class="foot-email-box">
+										<input type="text" class="form-control" placeholder="Enter Email Here....">
+									</div><!--/.foot-email-box-->
+									<div class="foot-email-subscribe">
+										<span><i class="fa fa-location-arrow"></i></span>
+									</div><!--/.foot-email-icon-->
+								</div><!--/.hm-foot-email-->
+							</div><!--/.hm-footer-widget-->
+						</div><!--/.col-->
+					</div><!--/.row-->
+				</div><!--/.hm-footer-details-->
+
+			</div><!--/.container-->
+			
+
+		</section>
+
+		

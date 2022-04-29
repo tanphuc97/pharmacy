@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css" integrity="sha256-3sPp8BkKUE7QyPSl6VfBByBroQbKxKG7tsusY2mhbVY=" crossorigin="anonymous" />
+    <link href="/src/app/assets/css/jobinformation.css" rel="stylesheet"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <section id="career" class="career">
+    <div class="container">
+       
+        <p-dialog header="{{title}}" [(visible)]="display" style="width:500px">
+            Done !
+        </p-dialog>
+        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+        <div class="row">
+            <div class="col-md-3">
+                
+                <span class="p-input-icon-right">
+                    <i class="pi pi-spin pi-spinner"></i>
+                    <input type="text" pInputText [(ngModel)]="keyword" placeholder="Search" (keyup)="search($event)">        
+                </span> 
+            </div>
+            <div class="col-md-3">
+                <i class="fa fa-taxi"></i>
+                <span class="font-bold ml-2">: {{jobs.length}}</span>
+            </div>
+            <div class="col-md-3" >
+                <i class="fa fa-cloud" style=" color: #4ef542;text-shadow: 2px 2px 1px #ccc;
+                font-size: 1.5em;"></i>
+                 <span class="font-bold ml-2" >: {{countStatus}}</span>
+            </div>
+            <div class="col-md-3" >
+                <i class="fa fa-minus-circle" style="color: #d11518;
+                text-shadow: 1px 1px 1px #ccc;
+                font-size: 1.5em;" ></i>
+                  <span class="font-bold ml-2" >: {{jobs.length-countStatus}}</span>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-12">
+            <ng-template pTemplate="summary">
+                There are {{jobs?.length}} job
+            </ng-template>
+            <p-table [value]="jobs" sortField="jobs.id" sortMode="single" [scrollable]="true" scrollHeight="800px"  rowGroupMode="subheader" groupRowsBy="jobs.id" [paginator]="true" [rows]="items"   >
+                <ng-template pTemplate="header">
+                    <tr>
+                      
+                        <th style="max-width:60px"  pSortableColumn="id" >ID<p-sortIcon field="id"></p-sortIcon></th>
+                        <th style="max-width:250px; min-width: 250px" pSortableColumn="jobName">Job<p-sortIcon field="jobName"></p-sortIcon></th>
+                        <th style="max-width:130px; min-width: 130px" pSortableColumn="salary">Salary<p-sortIcon field="salary"></p-sortIcon></th>
+                        <th style="max-width:200px; min-width: 200px" pSortableColumn="location">Location<p-sortIcon field="location"></p-sortIcon></th>
+                        <th style="max-width:130px; min-width: 130px" pSortableColumn="status">Status<p-sortIcon field="status"></p-sortIcon></th>
+                        <th style="max-width:130px; min-width: 130px" pSortableColumn="created">Created<p-sortIcon field="created"></p-sortIcon></th>
+                        <th style="max-width:200px; min-width: 200px">Action</th>
+                       
+                       
+                       
+                    </tr>
+                </ng-template>
+             
+                <ng-template pTemplate="body" let-job let-rowIndex="rowIndex">
+                    <tr>
+                        <td style="max-width:60px">
+                            {{job.id}}
+                        </td>
+                        <td style="max-width:250px; min-width: 250px">
+                            <span class="image-text">{{job.jobName}}</span>
+                        </td>
+                        <td style="max-width:130px; min-width: 130px">
+                          $  {{job.salary}} 
+                        </td>
+    
+                        <td style="max-width:200px; min-width: 200px">
+                            {{job.location}}
+                        </td>
+                     
+                        <td style="max-width:130px; min-width: 130px">
+                            <span *ngIf="job.status; else elseBlock" class="fa fa-cloud" style=" color: #4ef542;
+                            text-shadow: 2px 2px 1px #ccc;
+                            font-size: 1.5em;"></span>
+                            <ng-template #elseBlock ><span class="fa fa-minus-circle" style="color: #d11518;
+                                text-shadow: 1px 1px 1px #ccc;
+                                font-size: 1.5em;"></span></ng-template>
+                        </td>
+                        <td style="max-width:130px; min-width: 130px">
+                            {{job.created}}
+                        </td>
+                        <td style="max-width:200px; min-width: 200px">
+                            <span *ngIf="job.status" > <button (click)="applynow($event)" icon="pi pi-times" class="btn btn-outline-info rounded-circle pi pi-check border border-white" id="{{job.id}}" label=""></button></span>
+                            <span *ngIf="job.status" > <button (click)="detail($event)" class="fa fa-ellipsis-h" id="{{job.id}}" label=""></button></span>
+ 
+                        </td>
+                    </tr>
+                </ng-template>
+    
+    
+    
+    
+            </p-table>
+        </div>
+           
+        </div>
+    
+    </div>
+</section>
+
+   
+   
+</body>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.12.9/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script> --> -->
+</html>

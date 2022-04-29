@@ -1,0 +1,63 @@
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+           <ng-template pTemplate="left">    
+             <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+             <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-success mr-2" (click)="update()"></button>    
+   </ng-template>
+   </p-toolbar>
+   
+   
+   
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row justify-content-around">
+            <div class="col-md-11">
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Job Detail</h3>
+                  </div>
+                  <div>                                     
+                     <div class="card-body"> 
+                       <div class="form-group">
+                         <label for="name">Job ID</label>
+                         <input type="text" class="form-control" id="id" value="{{job.id}}" readonly>
+                      </div>
+                      <div class="form-group">
+                        <label for="jobName">Name</label>
+                        <input type="text" class="form-control" id="jobName" value="{{job.jobName}}" readonly>
+                     </div>
+ 
+                        <div class="form-group">
+                           <label for="location">Location</label>
+                           <input type="text" class="form-control" id="location" value="{{job.location}}" readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="salary">Salary</label>
+                           <input type="text" class="form-control" id="salary" value="{{job.salary}}" readonly>
+                        </div>
+                        
+                      <div class="form-group">
+                        <label for="description">Description</label>
+                        <div class="form-control" id="description" [innerHTML]="job.description" readonly></div>
+                   </div>
+                                              
+                      <div class="form-group">
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" *ngIf="job.status; else elseBlock" value="Active" readonly>
+                        <ng-template #elseBlock><input type="text" class="form-control" id="status" value="Inactive" readonly></ng-template>
+                        </div>
+                        
+                        <div class="form-group">
+                           <label for="created">Created</label>
+                           <input type="text" class="form-control" id="created" value="{{job.created}}" readonly>
+                        </div>
+                        <br>                     
+                        
+                     </div>
+                 </div>                
+               </div>             
+              </div>                  
+         </div>
+      </div>
+   </section>
+   </div>

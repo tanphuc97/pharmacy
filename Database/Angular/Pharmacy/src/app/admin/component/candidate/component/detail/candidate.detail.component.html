@@ -1,0 +1,139 @@
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+           <ng-template pTemplate="left">    
+             <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+             <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-success mr-2" (click)="update()"></button>    
+            </ng-template>
+   </p-toolbar>
+   
+   
+   
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row justify-content-around">
+            <div class="col-md-6">
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Candidate Detail</h3>
+                  </div>
+                  <div>                                     
+                     <div class="card-body"> 
+                       <div class="form-group">
+                         <label for="id">Candidate ID</label>
+                         <input type="text" class="form-control" id="id" value="{{candidate.id}}" readonly>
+                      </div>
+ 
+                        <div class="form-group">
+                           <label for="fullName">Fullname</label>
+                           <input type="text" class="form-control" id="fullName" value="{{candidate.fullname}}" readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="gender">Gender</label>
+                           <input type="text" class="form-control" id="status" *ngIf="candidate.gender; else elseBlock" value="Female" readonly>
+                           <ng-template #elseBlock><input type="text" class="form-control" id="status" value="Male" readonly></ng-template>
+                      </div>
+                      <div class="form-group">
+                        <label for="dob">Birthday</label>
+                        <input type="text" class="form-control" id="dob" value="{{candidate.dob}}" readonly>
+                     </div>
+                     <div class="form-group">
+                        <label for="education">Education</label>
+                        <input type="text" class="form-control" id="education" value="{{candidate.education}}" readonly>
+                     </div>
+                     <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" value="{{candidate.address}}" readonly>
+                     </div>
+                     <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" value="{{candidate.phone}}" readonly>
+                     </div>
+                                              
+                      <div>
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" *ngIf="candidate.status; else elseBlock" value="Active" readonly>
+                        <ng-template #elseBlock><input type="text" class="form-control" id="status" value="Inactive" readonly></ng-template>
+                        </div> 
+                        <br>                     
+                        
+                     </div>
+                 </div>                
+               </div>             
+              </div>
+              <div class="col-md-6">
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Candidate Photo</h3>
+                  </div>
+                  <div>
+                     <img src="{{candidatePhoto[0].url}}" width="100" height="100">
+                  </div>
+             </div>
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Candidate CV</h3>
+                  </div>
+                  <div>
+                     <div class="card-body p-0">
+                        <p-table responsiveLayout="scroll" [value]="candidateCVs">
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th>File Name</th>
+                              <th>File Size</th>
+                              <th></th>
+                            </tr>
+                          </ng-template>
+                          
+                           <ng-template pTemplate="body" let-candidateCV>
+                            <tr>
+                              <td>{{candidateCV.name}}</td>
+                              <td>{{candidateCV.length}} b</td>
+                              <td class="text-right py-0 align-middle">
+                                <div class="btn-group btn-group-sm">
+                                  <a href="{{candidateCV.url}}" class="btn btn-info"><i class="fas fa-eye"></i></a>                                  
+                                </div>
+                              </td>
+                           </ng-template>
+                        </p-table>
+                      </div>
+                  </div>
+             </div>
+             <div class="card card-primary">
+               <div class="card-header">
+                  <h3 class="card-title">Candidate Account</h3>
+               </div>
+               <div>                                     
+                  <div class="card-body"> 
+                    <div class="form-group">
+                      <label for="name">Account ID</label>
+                      <input type="text" class="form-control" id="id" value="{{account.id}}" readonly>
+                   </div>
+
+                     <div class="form-group">
+                        <label for="userName">Username</label>
+                        <input type="text" class="form-control" id="userName" value="{{account.username}}" readonly>
+                     </div>
+                     <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" value="{{account.email}}" readonly>
+                     </div>
+                     <div class="form-group">
+                        <label for="role">Role</label>
+                      <input type="text" class="form-control" id="role" value="{{account.role}}" readonly>
+                   </div>
+                                           
+                   <div>
+                     <label for="status">Status</label>
+                     <input type="text" class="form-control" id="status" *ngIf="account.status; else elseBlock" value="Active" readonly>
+                     <ng-template #elseBlock><input type="text" class="form-control" id="status" value="Inactive" readonly></ng-template>
+                     </div> 
+                     <br>                     
+                     
+                  </div>
+              </div>
+          </div>
+             </div>                  
+         </div>
+      </div>
+   </section>
+   </div>

@@ -1,0 +1,58 @@
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+           <ng-template pTemplate="left">    
+             <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+             <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-success mr-2" (click)="update()"></button>    
+   </ng-template>
+   </p-toolbar>
+   
+   
+   
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row justify-content-around">
+            <div class="col-md-11">
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Feedback Detail</h3>
+                  </div>
+                  <div>                                     
+                     <div class="card-body"> 
+                       <div class="form-group">
+                         <label for="name">Feedback ID</label>
+                         <input type="text" class="form-control" id="id" value="{{feedback.id}}" readonly>
+                      </div>
+ 
+                        <div class="form-group">
+                           <label for="product">Product</label>
+                           <input type="text" class="form-control" id="product" value="{{feedback.product}}" readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="client">Client</label>
+                           <input type="text" class="form-control" id="client" value="{{feedback.client}}" readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="title">Title</label>
+                         <input type="text" class="form-control" id="title" value="{{feedback.title}}" readonly>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="content">Content</label>
+                        <div class="form-control" id="content" [innerHTML]="feedback.content" readonly></div>
+                   </div>
+                                              
+                      <div>
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" *ngIf="feedback.status; else elseBlock" value="Active" readonly>
+                        <ng-template #elseBlock><input type="text" class="form-control" id="status" value="Inactive" readonly></ng-template>
+                        </div> 
+                        <br>                     
+                        
+                     </div>
+                 </div>                
+               </div>             
+              </div>                  
+         </div>
+      </div>
+   </section>
+   </div>

@@ -1,0 +1,91 @@
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+         <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>  
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          
+         <div class="card card-primary">
+            <div class="card-header">
+               <h3 class="card-title">Client Detail</h3>
+            </div>
+                                                
+               <div class="card-body col-md-2"> 
+                  <table class="table table-borderless">
+                     <tr>
+                        <td>Client ID: </td>
+                        <td>{{client.id}}</td>
+                     </tr>
+                     <tr>
+                        <td>Name: </td>
+                        <td>{{client.name}}</td>
+                     </tr>
+                     <tr>
+                        <td>Address: </td>
+                        <td>{{client.address}}</td>
+                     </tr>
+                     <tr>
+                        <td>City: </td>
+                        <td>{{client.city}}</td>
+                     </tr>
+                     <tr>
+                        <td>Country: </td>
+                        <td>{{client.country}}</td>
+                     </tr>
+                     <tr>
+                        <td>Email: </td>
+                        <td>{{client.emailAddress}}</td>
+                     </tr>
+                     <tr>
+                        <td>Phone: </td>
+                        <td>{{client.phone}}</td>
+                     </tr>
+               </table>
+               </div>
+                           
+         </div>
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="invoices" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Invoice {{invoices[0].invoiceId}} Detail</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+               <th>Photo</th>
+               <th pSortableColumn="productId">Product ID <p-sortIcon field="productId"></p-sortIcon></th>
+               <th pSortableColumn="product">Product <p-sortIcon field="product"></p-sortIcon></th>
+               <th pSortableColumn="productPrice">Price <p-sortIcon field="productPrice"></p-sortIcon></th>
+               <th pSortableColumn="quantity">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-invoice>
+           <tr>
+               <td><img src="{{invoice.productImg[0]}}" width="100" height="100"></td>
+               <td>{{invoice.productId}}</td>
+               <td>{{invoice.product}}</td>
+               <td>{{invoice.productPrice}}</td>
+               <td>{{invoice.quantity}}</td>
+               
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+         <div class="flex align-items-center justify-content-between">
+               In total there are {{invoices ? invoices.length : 0 }} products. Total: {{total | currency: 'USD'}}.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>

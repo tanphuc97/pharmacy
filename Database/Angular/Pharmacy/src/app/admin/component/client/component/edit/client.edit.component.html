@@ -1,0 +1,131 @@
+<div class="card">
+  <p-toolbar styleClass="mb-2">
+          <ng-template pTemplate="left">    
+            <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+            <button pButton pRipple label="Detail" icon="pi pi-folder-open" class="p-button-success mr-2" (click)="detail()"></button>    
+  </ng-template>
+  </p-toolbar>
+  
+  
+  
+  <section class="content">
+     <div class="container-fluid">
+        <div class="row justify-content-around">
+           <div class="col-md-12">
+              <div class="card card-primary">
+                 <div class="card-header">
+                    <h3 class="card-title">Edit Client</h3>
+                 </div>
+                 <div>
+                 <form method="put" [formGroup]="editClientForm" (ngSubmit)="update()">                   
+                    <div class="card-body">                     
+                      
+                      <div class="form-group">
+                        <label for="id">Client ID</label>
+                        <input type="text" class="form-control" id="id" formControlName="id" readonly>
+                     </div>
+
+                       <div class="form-group">
+                          <label for="name">Name</label>
+                          <input type="text" class="form-control" id="name" formControlName="name">
+                          <div>
+                             <div *ngIf="editClientForm.get('name').touched">
+                                <div *ngIf="editClientForm.hasError('required', ['name'])">
+                                   This field is required.
+                                </div>
+                                <div *ngIf="editClientForm.hasError('maxLength', ['name'])">
+                                   Please enter no more than 250 characters.
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                       
+                       <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" id="address" formControlName="address">
+                        <div>
+                           <div *ngIf="editClientForm.get('address').touched">
+                              <div *ngIf="editClientForm.hasError('required', ['address'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="editClientForm.hasError('maxLength', ['address'])">
+                                 Please enter no more than 250 characters.
+                              </div>
+                           </div>
+                        </div>
+                       </div>
+
+                       <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" class="form-control" id="city" formControlName="city">
+                        <div>
+                           <div *ngIf="editClientForm.get('city').touched">
+                              <div *ngIf="editClientForm.hasError('required', ['city'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="editClientForm.hasError('maxLength', ['city'])">
+                                 Please enter no more than 250 characters.
+                              </div>
+                           </div>
+                        </div>
+                       </div>
+
+                       <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" class="form-control" id="country" formControlName="country">
+                        <div>
+                           <div *ngIf="editClientForm.get('country').touched">
+                              <div *ngIf="editClientForm.hasError('required', ['country'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="editClientForm.hasError('maxLength', ['country'])">
+                                 Please enter no more than 250 characters.
+                              </div>
+                           </div>
+                        </div>
+                       </div>
+
+                       <div class="form-group">
+                        <label for="emailAddress">Email</label>
+                        <input type="text" class="form-control" id="emailAddress" formControlName="emailAddress">
+                        <div>
+                           <div *ngIf="editClientForm.get('emailAddress').touched">
+                              <div *ngIf="editClientForm.hasError('required', ['emailAddress'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="editClientForm.hasError('maxLength', ['emailAddress'])">
+                                 Please enter a valid email address.
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                       <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone" formControlName="phone">
+                        <div>
+                           <div *ngIf="editClientForm.get('phone').touched">
+                              <div *ngIf="editClientForm.hasError('required', ['phone'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="editClientForm.hasError('maxLength', ['phone'])">
+                                 Please enter no more than 20 characters.
+                              </div>
+                           </div>
+                        </div>
+                       </div>
+                    </div>
+                    <div class="card-footer">
+                       <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                 </form>
+                </div>                
+              </div>             
+             </div>       
+        </div>
+     </div>
+  </section>
+  </div>
+  <p-dialog header="Create" [(visible)]="display">
+    Done
+ </p-dialog>

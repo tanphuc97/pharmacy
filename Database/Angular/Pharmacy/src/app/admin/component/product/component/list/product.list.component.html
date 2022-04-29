@@ -1,0 +1,71 @@
+  
+<div class="card">
+    <p-toolbar styleClass="mb-2">
+        <ng-template pTemplate="left">    
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>    
+        </ng-template>
+        <ng-template pTemplate="right">
+            <input pInputText type="text" placeholder="Search name..." [(ngModel)]="keyword"> &nbsp;    
+            <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+        </ng-template>
+    </p-toolbar> 
+
+
+    <section class="content">
+        <div class="container-fluid">
+           <div class="row justify-content-around">
+                <div class="col-md-12">
+                    <p-table  #dt [value]="products" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+        [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+                <h5 class="m-0">Products List</h5>                
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>                
+                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>                
+                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                <th pSortableColumn="created">Add Date <p-sortIcon field="created"></p-sortIcon></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+            <tr>
+                <td>{{product.id}}</td>
+                <td>{{(product.name.length>50)? (product.name | slice:0:50)+'...':(product.name)}}</td>
+                <td>{{product.price | currency:'USD'}}</td>
+                <td>{{product.category}}</td>                
+                <td>
+                    <span *ngIf="product.status; else elseBlock">Active</span>
+                    <ng-template #elseBlock>Inactive</ng-template>
+                </td>
+                <td>{{product.created}}</td>
+                <td>
+                  <button pButton pRipple icon="pi pi-folder-open" class="p-button-rounded p-button-success mr-2" (click)="detail(product.id)"></button>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="update(product.id)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="delete(product.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+                In total there are {{products ? products.length : 0 }} products.
+            </div>
+        </ng-template>
+    </p-table>
+                </div>                  
+           </div>
+        </div>
+     </section>
+
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog header="Delete" [(visible)]="display">
+    Cannot delete
+ </p-dialog>

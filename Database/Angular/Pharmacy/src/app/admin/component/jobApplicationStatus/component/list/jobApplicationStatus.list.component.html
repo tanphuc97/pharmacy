@@ -1,0 +1,64 @@
+  
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+           <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>    
+       </ng-template>
+       <ng-template pTemplate="right">
+           <input pInputText type="text" placeholder="Search name..." [(ngModel)]="keyword"> &nbsp;    
+           <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="jobApplicationStatuses" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Job Application Status List</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+               <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>   
+               <th pSortableColumn="Status">Status <p-sortIcon field="status"></p-sortIcon></th>
+               <th></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-jobApplicationStatus>
+           <tr>
+            <td>{{jobApplicationStatus.id}}</td>
+               <td>{{(jobApplicationStatus.name.length>50)? (jobApplicationStatus.name | slice:0:50)+'...':(jobApplicationStatus.name)}}</td>               
+               <td>
+                   <span *ngIf="jobApplicationStatus.status; else elseBlock">Active</span>
+                   <ng-template #elseBlock>Inactive</ng-template>
+               </td>
+               <td>
+                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="update(jobApplicationStatus.id)"></button>
+                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="delete(jobApplicationStatus.id)"></button>
+               </td>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+           <div class="flex align-items-center justify-content-between">
+               In total there are {{jobApplicationStatuses ? jobApplicationStatuses.length : 0 }} Statuses.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog header="Delete" [(visible)]="display">
+    Cannot delete
+ </p-dialog>

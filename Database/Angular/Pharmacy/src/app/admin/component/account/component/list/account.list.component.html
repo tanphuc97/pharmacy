@@ -1,0 +1,69 @@
+  
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+               
+       </ng-template>
+       <ng-template pTemplate="right">
+           <input pInputText type="text" placeholder="Search username..." [(ngModel)]="keyword"> &nbsp;    
+           <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="accounts" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Account List</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+               <th pSortableColumn="userName">Username <p-sortIcon field="userName"></p-sortIcon></th>
+               <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+               <th pSortableColumn="role">Role <p-sortIcon field="role"></p-sortIcon></th>   
+               <th pSortableColumn="Status">Status <p-sortIcon field="status"></p-sortIcon></th>
+               <th></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-account>
+           <tr>
+              <td>{{account.id}}</td>
+               <td>{{(account.username.length>20)? (account.username | slice:0:20)+'...':(account.username)}}</td>
+               <td>{{(account.email.length>20)? (account.email | slice:0:20)+'...':(account.email)}}</td>
+               <td>{{account.role}}</td>               
+               <td>
+                   <span *ngIf="account.status; else elseBlock">Active</span>
+                   <ng-template #elseBlock>Inactive</ng-template>
+               </td>
+               <td>
+                  <button pButton pRipple icon="pi pi-folder-open" class="p-button-rounded p-button-success mr-2" (click)="detail(account.id)"></button>
+                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="update(account.id)"></button>
+                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="delete(account.id)"></button>
+               </td>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+           <div class="flex align-items-center justify-content-between">
+               In total there are {{accounts ? accounts.length : 0 }} accounts.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog header="Delete" [(visible)]="display">
+    Cannot delete
+ </p-dialog>

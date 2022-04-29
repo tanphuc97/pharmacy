@@ -1,0 +1,64 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+                
+       </ng-template>
+       <ng-template pTemplate="right">
+           <input pInputText type="text" placeholder="Search job/ candidate..." [(ngModel)]="keyword"> &nbsp;    
+           <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="jobApplications" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Job Application List</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+            <th pSortableColumn="jobId">Job ID <p-sortIcon field="jobId"></p-sortIcon></th>
+               <th pSortableColumn="job">Job <p-sortIcon field="client"></p-sortIcon></th>
+               <th pSortableColumn="candidateId">Candidate ID <p-sortIcon field="candidateId"></p-sortIcon></th>
+               <th pSortableColumn="candidate">Candidate<p-sortIcon field="candidate"></p-sortIcon></th>
+               <th pSortableColumn="applyDate">Applied Date<p-sortIcon field="applyDate"></p-sortIcon></th>
+               <th pSortableColumn="status">Status<p-sortIcon field="status"></p-sortIcon></th>
+               <th pSortableColumn="dateInterview">Date Interview<p-sortIcon field="dateInterview"></p-sortIcon></th>
+               <th></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-jobApplication>
+           <tr>
+            <td>{{jobApplication.jobId}}</td>
+               <td>{{jobApplication.job}}</td>
+               <td>{{jobApplication.candidateId}}</td>
+               <td>{{jobApplication.candidate}}</td>
+               <td>{{jobApplication.applyDate}}</td>
+               <td>{{jobApplication.status}}</td>
+               <td>{{jobApplication.dateInterview}}</td>
+               <td>
+                  <button pButton pRipple icon="pi pi-folder-open" class="p-button-rounded p-button-success mr-2" (click)="detail(jobApplication.jobId, jobApplication.candidateId)"></button>    
+                  <button pButton pRipple icon="pi pi-send" class="p-button-rounded p-button-success mr-2 " (click)="update(jobApplication.jobId, jobApplication.candidateId)"></button>            
+               </td>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+           <div class="flex align-items-center justify-content-between">
+               In total there are {{jobApplications ? jobApplications.length : 0 }} Job Applications.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>

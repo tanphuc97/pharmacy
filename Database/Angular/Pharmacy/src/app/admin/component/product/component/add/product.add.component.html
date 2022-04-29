@@ -1,0 +1,82 @@
+<div class="card">
+<p-toolbar styleClass="mb-2">
+        <ng-template pTemplate="left"> 
+        <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>         
+</ng-template>
+</p-toolbar>
+
+
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="row justify-content-around">
+         <div class="col-md-11">
+            <div class="card card-primary">
+               <div class="card-header">
+                  <h3 class="card-title">Add Product</h3>
+               </div>
+               <div>
+               <form method="put" [formGroup]="addProductForm" (ngSubmit)="saveProduct()">                   
+                  <div class="card-body">                     
+                     
+                     <div class="form-group">
+                        <label for="name">Product Name</label>
+                        <input type="text" class="form-control" id="name" formControlName="name">
+                        <div>
+                           <div *ngIf="addProductForm.get('name').touched">
+                              <div *ngIf="addProductForm.hasError('required', ['name'])">
+                                 This field is required.
+                              </div>
+                              <div *ngIf="addProductForm.hasError('maxLength', ['name'])">
+                                 Please enter no more than 250 characters.
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                       <label for="price">Product Price</label>
+                       <input type="text" class="form-control" id="price" formControlName="price">
+                       <div>
+                        <div *ngIf="addProductForm.get('price').touched">
+                           <div *ngIf="addProductForm.hasError('required', ['price'])">
+                              This field is required.
+                           </div>
+                           <div *ngIf="addProductForm.hasError('max', ['price'])">
+                              Please enter no more than 10 millions.
+                           </div>
+                        </div>
+                     </div>
+                    </div>
+                    <div class="form-group">
+                       <label>Select Category</label>
+                       <select class="form-control" formControlName="categoryId">
+                           <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
+                       </select>
+                    </div>                      
+                     <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="status" formControlName="status">
+                        <label class="form-check-label" for="status">Active</label>
+                     </div> 
+                     <br>                     
+                     <div class="form-group">
+                       <p-editor formControlName="description" [style]="{'height':'320px'}"></p-editor>
+                       <div>
+                        <div *ngIf="addProductForm.get('description').touched">
+                           <div *ngIf="addProductForm.hasError('required', ['description'])">
+                              This field is required.
+                           </div>
+                        </div>
+                        </div>
+                 </div>
+                  </div>
+                  <div class="card-footer">
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+               </form>
+              </div>                
+            </div>             
+           </div>                  
+      </div>
+   </div>
+</section>
+</div>

@@ -1,0 +1,287 @@
+create database Pharmacy;
+create table Role (
+	id int not null identity(1,1),
+	name varchar(250),
+	status bit,
+	PRIMARY KEY(id)
+);
+
+create table Account (
+	id int not null identity(1,1),
+	roleId int,
+	email varchar(250),
+	username varchar(250),
+	password varchar(250),
+	status bit,
+	code varchar(250),
+	PRIMARY KEY(id),
+	FOREIGN KEY(roleId) REFERENCES Role(id)
+
+);
+
+create table Client (
+	id int not null identity(1,1),
+	name varchar(250),
+	address varchar(250),
+	city varchar(250),
+	country varchar(250),
+	emailAddress varchar(250),
+	phone varchar(250),
+	PRIMARY KEY(id),
+
+);
+
+create table Category(
+	id int not null identity(1,1),
+	name varchar(250),
+	status bit,
+	PRIMARY KEY (id)
+);
+
+create table Product(
+	id int not null identity(1,1),
+	name varchar(250),
+	price money,
+	description text,
+	status bit,
+	categoryId int,
+	created date,
+	PRIMARY KEY (id),
+	FOREIGN KEY(categoryId) REFERENCES Category(id)
+);
+
+create table Feedback(
+	id int not null identity(1,1),
+	title text,
+	productId int,
+	clientId int,
+	content text,
+	status bit,
+	PRIMARY KEY (id),
+	FOREIGN KEY(clientId) REFERENCES Client(id),
+	FOREIGN KEY(productId) REFERENCES Product(id)
+);
+
+create table Candidate(
+	id int not null identity(1,1),
+	fullname varchar(250),
+	gender bit,
+	dob date,
+	address varchar(250),
+	education varchar(250),
+	accountId int,
+	status bit,
+	phone varchar(250),	
+	PRIMARY KEY (id),
+	FOREIGN KEY(accountId) REFERENCES Account(id),
+);
+
+create table Invoice(
+	id int not null identity(1,1),
+	clientId int,
+	created date,
+	PRIMARY key(id),
+	FOREIGN KEY(clientId) REFERENCES Client(id)
+
+);
+create table InvoiceDetail(
+	invoiceId int not null,
+	productId int not null,
+	quantity int,
+	FOREIGN KEY(invoiceId) REFERENCES Invoice(id),
+	FOREIGN KEY(productId) REFERENCES Product(id),
+	
+
+);
+create table Job(
+	id int not null identity(1,1),
+	jobName text,
+	description text,
+	created date,
+	salary int,
+	location text,
+	status bit,
+	PRIMARY key(id),
+);
+
+create table JobApplicationStatus(
+	id int not null identity(1,1),
+	name varchar(250),
+	status bit,
+	PRIMARY key(id),
+);
+
+create table JobApplication(
+	jobId int not null,
+	applyDate Date,
+	candidateId int not null,
+	statusId int,
+	dateInterview Date,
+	FOREIGN KEY(jobId) REFERENCES Job(id),
+	FOREIGN KEY(statusId) REFERENCES JobApplicationStatus(id),
+	FOREIGN KEY(candidateId) REFERENCES Candidate(id),
+);
+
+create table ProductFileUpload(
+	fileId int not null identity(1,1),
+	name varchar(250),
+	length int,
+	url varchar(250),
+	productId int,
+	PRIMARY KEY(fileId),
+	FOREIGN KEY(productId) REFERENCES Product(id),
+);
+create table CandidateFileUpload(
+	fileId int not null identity(1,1),
+	category varchar(250),
+	length int,
+	url varchar(250),
+	candidateId int,
+	name varchar(250),
+	PRIMARY KEY(fileId),
+	FOREIGN KEY(candidateId) REFERENCES Candidate(id),
+);
+
+create table AboutUs(
+	id int not null identity(1,1),
+	content text,
+	PRIMARY KEY(id),
+);
+
+/* ProductFileUpload table and CandidateFileUpload table : in the column "url" you have to change the port to display the image */
+
+INSERT INTO Role
+	(name,status)
+VALUES
+	('Admin','True'),
+	('Manager','True'),
+	('User','True');
+
+INSERT INTO Account
+(roleId,email,username,password,status,code)
+VALUES
+('1','aaa@gmail.com','admin','$2a$11$1L9.kGGrkSQIF/F5SgQL8.Ayu/YTeoZjHGzlWJt12YwG15cjukTgS','True','DHSN5D'),
+('3','bbb@gmail.com','Tryndamere','$2a$11$1L9.kGGrkSQIF/F5SgQL8.Ayu/YTeoZjHGzlWJt12YwG15cjukTgS','True','SDE5DA'),
+('3','ccc@gmail.com','AAtrox','$2a$11$1L9.kGGrkSQIF/F5SgQL8.Ayu/YTeoZjHGzlWJt12YwG15cjukTgS','True','45DE5G'),
+('3','ddd@gmail.com','Tristana','$2a$11$1L9.kGGrkSQIF/F5SgQL8.Ayu/YTeoZjHGzlWJt12YwG15cjukTgS','True','6DSE5E');
+
+INSERT INTO Client
+	(name,address,city,country,emailAddress,phone)
+VALUES
+	('client01','11/11 Binh Tri Dong','HCM','Viet Nam','name01@gmail.com','0909090909'),
+	('client02','102 Phan Van Hon','HCM','Viet Nam','name02@gmail.com','0808080808'),
+	('client03','10/22 An Duong Vuong','HCM','Viet Nam','name03@gmail.com','0707070707');
+
+INSERT INTO Category
+	(name,status)
+VALUES
+	('Pre-processing equipment', 'True'),
+	('Material mixer', 'True'),
+	('Granulating fluidized bed dryer', 'True'),
+	('Pill stamping machine', 'True'),
+	('Pill wrapping machine', 'True'),
+	('Medicine vial filling machine', 'True'),
+	('Blister Press Machine', 'True');
+
+INSERT INTO Product
+	(name,price,description,status,categoryId,created)
+VALUES
+	('Medicinal cleaning machine','4500','<p>- Size (mm): 1530 x 730 x 1330<br />- Capacity (Kw): 15<br />- Power source (V): 380<br />- Weight (kg): 300<br />- Made: Viet Nam<br />- Uses: Used to prepare medicinal ingredients</p>','False','1','2020-05-14'),
+	('Medicine slicer','3000','<p>- Size (mm): 1400 x 650 x 1000<br />- Capacity (Kw): 2,2<br />- Power source (V): 220<br />- Weight (kg): 70<br />- Made: China<br />- Uses: The machine is specialized for slicing, slicing of medicinal herbs</p>','True','1','2000-10-10'),
+	('Centrifugal extractor','1500','<p>- Size (mm): 1200x700x600<br />- Capacity (Kw): 0,8<br />- Power source (V): 220<br />- Weight (kg): 100<br />- Made: China<br />- Uses: After being washed, medicinal herbs will be transferred to a centrifugal extractor to clean the water, and then sent to dry.</p>','True','1','2019-08-06'),
+	('Dry ingredients mixer','1000','<p>- Size (mm): 720x380x600<br />- Capacity (Kw): 0,55<br />- Power source (V): 220<br />- Weight (kg): 37<br />- Made: Viet Nam<br />- Uses: Mixing and granulating raw materials for the manufacture of pharmaceuticals, foodstuffs and chemicals.</p>','True','2','2009-10-08'),
+	('Super speed mixer','3500','<p>- Size (mm): 920x580x700<br />- Capacity (Kw): 0,55<br />- Power source (V): 220<br />- Weight (kg): 350<br />- Made: Viet Nam<br />- Uses: Mixing and granulating raw materials for the manufacture of pharmaceuticals, foodstuffs and chemicals.</p>','True','2','2001-05-05'),
+	('Centrifugal spray dryer','5000','<p>- Size (mm): 1800x1000x1950<br />- Capacity (Kw): 7<br />- Power source (V): 220<br />- Weight (kg): 270<br />- Made: China<br />- Uses: Used for drying medicinal materials.</p>','True','3','2009-05-08'),
+	('Pelletizing machine','2500','<p>- Size (mm): 720x400x350<br />- Capacity (Kw): 2,2<br />- Power source (V): 220<br />- Weight (kg): 230<br />- Made: Viet Nam<br />- Uses: Make herbs in pill shape.</p>','True','3','2008-10-16'),
+	('Pill making machine','25000','<p>- Size (mm): 900x800x1640<br />- Capacity (Kw): 7,5<br />- Power source (V): 500<br />- Weight (kg): 1500<br />- Made: China<br />- Uses: Make herbs in pill shape.</p>','True','4','2009-07-15'),
+	('Pill making machine-tow color','28000','<p>- Size (mm): 900x800x1640<br />- Capacity (Kw): 3<br />- Power source (V): 300<br />- Weight (kg): 1200<br />- Made: China<br />- Uses: Make herbs in pill shape.</p>','True','4','2007-03-12'),
+	('Automaic blister press machine DDP80','90000','<p>- Size (mm): 1840x900x1300<br />- Capacity (Kw): 2,8<br />- Power source (V): 220<br />- Weight (kg): 480<br />- Made: Viet Nam<br />- Uses: Automatic Blister Machine DPP-80 is used to pack tablets and capsules in the pharmaceutical, functional food, chemical and cosmetic industries with different sizes and quantities</p>','True','7','2007-09-01'),
+	('Injectable tube canning machine','95000','<p>- Size (mm): 3700x2200x1800<br />- Capacity (Kw): 1,5<br />- Power source (V): 220<br />- Weight (kg): 1600<br />- Made: Viet Nam<br />- Uses: Syringe box packing machine is a machine commonly used to pack for pharmaceutical products, dietary supplements, used to canning syringes or some other specific product types.</p>','True','7','2009-10-30'),
+	('Automatic packaging machine NJP-8200','8000','<p>- Size (mm): 1520&times;1200&times;2170<br />- Capacity (Kw): 9,75<br />- Power source (V): 380<br />- Weight (kg): 1500<br />- Made: Viet Nam<br />-Uses: Complete automatic hard capsule packing.</p>','True','5','2006-10-25'),
+	('Laboratory film machine','7000','<p>- Size (mm): 1050&times;830&times;1900<br />- Capacity (Kw): 3<br />- Power source (V): 220<br />- Weight (kg): 360<br />- Made: Viet Nam<br />-Uses: This is a model of high performance film coating laboratory machine specially designed to suit the laboratories and research and development products of pharmaceutical manufacturing plants with the ability of film coating, sugar coating ... for compressed tablets, pilet, small granules&hellip;</p>','True','6','1999-06-08'),
+	('Automatic pharmaceutical boxing machine','75000','<p>- Size (mm): 1050&times;830&times;1900<br />- Capacity (Kw): 3,5<br />- Power source (V): 220<br />- Weight (kg): 460<br />- Made: Viet Nam<br />-Uses: Automatic box packing by line.</p>','True','6','2006-12-08');
+
+INSERT INTO Feedback
+	(title,productId,clientId,content,status)
+VALUES
+	('Medicinal cleaning machine','1','1','good','True'),
+	('Medicine slicer','2','2','very good','True'),
+	('Centrifugal extractor','3','3','bad','True');
+
+INSERT INTO Candidate
+	(fullname,gender,dob,address,education,accountId,status,phone)
+VALUES
+	('Tryndamere','True','1990-10-10','Noxus','University','2','True','0909090909'),
+	('AAtrox','True','1992-12-12','Noxus','colleges','3','True','0808080808'),
+	('Tristana','False','1994-08-08','Demacia','Intermediate','4','True','0707070707');
+
+INSERT INTO Invoice
+	(clientId,created)
+VALUES
+	('1','2022-03-05'),
+	('2','2021-05-12'),
+	('3','2020-07-23');
+
+INSERT INTO InvoiceDetail
+	(invoiceId,productId,quantity)
+VALUES
+	('1','2','2'),
+	('2','3','1'),
+	('3','1','3');
+
+
+INSERT INTO Job
+	(jobName,description,created,salary,location,status)
+VALUES
+	('engineer','<p>Job description:<br />- Prepare necessary materials for production, ensuring compliance with standards.<br />- Using machines in production.<br />- Control the quality of input materials, packaging materials, containers, brands... to ensure that the finished products reach the market with quality standards.<br />- Implement and control effective cleaning in production areas.<br />- Identify potential hazards in the manufacturing sector, recommend preventive measures to reduce risks.</p>','2008-05-05','2000','130 To Hien Thanh Q10','True'),
+	('sale','<p>Job description:<br />- Building relationships and taking care of customers, developing relationships and finding new customers and markets.<br />- Implement marketing and sales campaigns/activities of the Company.<br />- Receive orders, quote, process order care.</p>','2010-05-09','1000','150 Vo Thi Sau Q3','True'),
+	('sale manager','<p>Job description:<br />- Make target and budget<br />- Make sales plan and obtain new business/customers<br />- Instruct the sales staff on the sales activity and monitor the progress of sales activities<br />- Support the staff to achieve the target</p>','2022-04-01','3000','10/20 Nguyen Chi Thanh Q5','True'),
+	('accountant','<p>Job description<br />- Prepare tax reports, financial statements and related reports according to current laws,<br />- Handling tax related issues,<br />- Firmly grasp and understand the provisions of the Law on Taxation, principles and standards of finance and accounting, arising accounting operations.<br />- Timely tracking, control and inventory management<br />- Follow up and make orders on schedule<br />- Perform other tasks assigned in the accounting department</p>','2022-04-05','1200','130 To Hien Thanh Q10','True');
+
+INSERT INTO JobApplicationStatus
+	(name,status)
+VALUES
+	('Approve','True'),
+	('Waitting','True'),
+	('Cancel','True');
+
+INSERT INTO JobApplication
+	(jobId,applyDate,candidateId,statusId,dateInterview)
+VALUES
+('1','2022-03-08','2','1','2022-04-01'),
+('2','2022-03-08','3','3',''),
+('3','2022-03-08','1','2','');
+
+
+
+INSERT INTO ProductFileUpload
+	(name,length,url,productId)
+VALUES
+	('1','11446','http://localhost:5235/images/5.jpg','1'),
+	('2','11446','http://localhost:5235/images/14.jpg','2'),
+	('3','11446','http://localhost:5235/images/2.jpg','3'),
+	('4','11446','http://localhost:5235/images/3.jpg','4'),
+	('5','11446','http://localhost:5235/images/4.jpg','5'),
+	('6','11446','http://localhost:5235/images/6.jpg','6'),
+	('7','11446','http://localhost:5235/images/7.jpg','7'),
+	('8','11446','http://localhost:5235/images/8.jpg','8'),
+	('9','11446','http://localhost:5235/images/9.jpg','9'),
+	('10','11446','http://localhost:5235/images/10.jpg','10'),
+	('11','11446','http://localhost:5235/images/11.jpg','11'),
+	('12','11446','http://localhost:5235/images/12.jpg','12'),
+	('13','11446','http://localhost:5235/images/13.jpg','13'),
+	('14','11446','http://localhost:5235/images/14.jpg','14');
+
+INSERT INTO CandidateFileUpload
+	(category,length,url,candidateId,name)
+VALUES
+	('photo','11446','http://localhost:5235/uploads/1633132430_295_Nhung-hinh-the-dep-nhat.jpg','1','1633132430_295_Nhung-hinh-the-dep-nhat.jpg');
+
+INSERT INTO AboutUs
+	(content)
+VALUES
+	('<p>Pharmacy is a leading company in pharmacy automation. State-of-the-art and high-quality products provide innovative solutions for safer distribution of medicines.</p><p><br></p><p>We challenge ourselves to combine our technique, creativity and insights into forward-thinking, efficient and unique systems to improve patients’ lives.</p><p><br></p><p>Through smart partnerships we are able to build a strong brand. We travel all over the world to learn from, understand and listen to our customers and to exchange knowledge with our business partners. These co-operations make us better and allow our creativity to thrive.</p><p>Pharmacy was founded in 1993 by Aptech, a renowned pharmacist and a deep believer of Ayurveda with an ambitious vision to introduce 5000-year-old ancient medicinal science to society. Green Pharmacy has done years of research referring to ancient Ayurvedic literature, selection of indigenous herbs, and study of modern formulations to provide best of products to their customers.</p><p>At Pharmacy, we deliver answers for crucial health questions—because the more we know, the better life can be. Our more than 70,000 employees across the world reach more than 160 million patients each year. With this unmatched global scale and scientific expertise, we are driving countless innovations in areas including oncology, biomarkers and companion diagnostics, vaccines, specialty and general testing, data analytics, virtual clinical trials and commercialization services. We are innovating for millions.</p><p>Over the years we have offered our contract manufacturing services in the domestic market.Pharmacy is committed to building a mutually rewarding business relationship with both national and international customers. Pharmacy strong manufacturing competence, its committed team and its continuous pursuit of total quality are all focused on further expanding our large base of satisfied clients and fulfilling its objective of becoming a leading world player in formulations for the pharmaceutical industry.</p><p>Pharmacy was founded in 1993 by Aptech, a renowned pharmacist and a deep believer of Ayurveda with an ambitious vision to introduce 5000-year-old ancient medicinal science to society. Green Pharmacy has done years of research referring to ancient Ayurvedic literature, selection of indigenous herbs, and study of modern formulations to provide best of products to their customers.</p><p>At Pharmacy, we deliver answers for crucial health questions—because the more we know, the better life can be. Our more than 70,000 employees across the world reach more than 160 million patients each year. With this unmatched global scale and scientific expertise, we are driving countless innovations in areas including oncology, biomarkers and companion diagnostics, vaccines, specialty and general testing, data analytics, virtual clinical trials and commercialization services.We are innovating for millions.</p><p>Over the years we have offered our contract manufacturing services in the domestic market.Pharmacy is committed to building a mutually rewarding business relationship with both national and international customers. Pharmacy strong manufacturing competence, its committed team and its continuous pursuit of total quality are all focused on further expanding our large base of satisfied clients and fulfilling its objective of becoming a leading world player in formulations for the pharmaceutical industry.</p><p>Pharmacy was founded in 1993 by Aptech, a renowned pharmacist and a deep believer of Ayurveda with an ambitious vision to introduce 5000-year-old ancient medicinal science to society. Green Pharmacy has done years of research referring to ancient Ayurvedic literature, selection of indigenous herbs, and study of modern formulations to provide best of products to their customers.</p><p>At Pharmacy, we deliver answers for crucial health questions—because the more we know, the better life can be. Our more than 70,000 employees across the world reach more than 160 million patients each year. With this unmatched global scale and scientific expertise, we are driving countless innovations in areas including oncology, biomarkers and companion diagnostics, vaccines, specialty and general testing, data analytics, virtual clinical trials and commercialization services. We are innovating for millions.</p><p>Over the years we have offered our contract manufacturing services in the domestic market.Pharmacy is committed to building a mutually rewarding business relationship with both national and international customers. Pharmacy strong manufacturing competence, its committed team and its continuous pursuit of total quality are all focused on further expanding our large base of satisfied clients and fulfilling its objective of becoming a leading world player in formulations for the pharmaceutical industry.</p><p><br></p>')
+
+
+	
+

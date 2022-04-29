@@ -1,0 +1,83 @@
+  
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+               
+       </ng-template>
+       <ng-template pTemplate="right">
+           <input pInputText type="text" placeholder="Search name..." [(ngModel)]="keyword"> &nbsp;    
+           <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="candidates" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Candidate List</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+               <th pSortableColumn="fullname">Fullname <p-sortIcon field="fullname"></p-sortIcon></th>
+               <th pSortableColumn="gender">Gender <p-sortIcon field="gender"></p-sortIcon></th>
+               <th pSortableColumn="birthday">Birthday <p-sortIcon field="birthday"></p-sortIcon></th>
+               <th pSortableColumn="education">Education <p-sortIcon field="education"></p-sortIcon></th>
+               <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon></th>
+               <th pSortableColumn="phone">Phone <p-sortIcon field="phone"></p-sortIcon></th>
+               <th pSortableColumn="account">Account <p-sortIcon field="account"></p-sortIcon></th>   
+               <th pSortableColumn="Status">Status <p-sortIcon field="status"></p-sortIcon></th>
+               <th></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-candidate>
+           <tr>
+              <td>{{candidate.id}}</td>
+               <td>{{(candidate.fullname.length>25)? (candidate.fullname | slice:0:25)+'...':(candidate.fullname)}}</td>
+               <td>
+                  <span *ngIf="candidate.gender; else elseBlock">Female</span>
+                  <ng-template #elseBlock>Male</ng-template>
+              </td>
+              <td>{{candidate.dob}}</td>
+              <td>{{candidate.education}}</td>
+              <td>{{(candidate.address.length>25)? (candidate.address | slice:0:25)+'...':(candidate.address)}}</td>
+               <td>{{candidate.phone}}</td>
+               <td>
+                  <span *ngIf="candidate.accountId != null; else elseBlock">{{candidate.account}}</span>
+                  <ng-template #elseBlock>No Account</ng-template>
+              </td>             
+               <td>
+                   <span *ngIf="candidate.status; else elseBlock">Active</span>
+                   <ng-template #elseBlock>Inactive</ng-template>
+               </td>
+               <td>
+                  <button pButton pRipple icon="pi pi-folder-open" class="p-button-rounded p-button-success mr-2" (click)="detail(candidate.id)"></button>
+                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="update(candidate.id)"></button>
+                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="delete(candidate.id)"></button>
+               </td>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+           <div class="flex align-items-center justify-content-between">
+               In total there are {{candidates ? candidates.length : 0 }} candidates.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog header="Delete" [(visible)]="display">
+    Cannot delete
+ </p-dialog>

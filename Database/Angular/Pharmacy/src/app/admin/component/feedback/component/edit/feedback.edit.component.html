@@ -1,0 +1,77 @@
+<div class="card">
+  <p-toolbar styleClass="mb-2">
+          <ng-template pTemplate="left">    
+            <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+            <button pButton pRipple label="Detail" icon="pi pi-folder-open" class="p-button-success mr-2" (click)="detail()"></button>    
+  </ng-template>
+  </p-toolbar>
+  
+  
+  
+  <section class="content">
+     <div class="container-fluid">
+        <div class="row justify-content-around">
+           <div class="col-md-11">
+              <div class="card card-primary">
+                 <div class="card-header">
+                    <h3 class="card-title">Edit Feedback</h3>
+                 </div>
+                 <div>
+                 <form method="put" [formGroup]="editFeedbackForm" (ngSubmit)="update()">                   
+                    <div class="card-body">                     
+                      
+                      <div class="form-group">
+                        <label for="id">Feedback ID</label>
+                        <input type="text" class="form-control" id="id" formControlName="id" readonly>
+                     </div>
+                     <div class="form-group">
+                      <label for="product">Product</label>
+                      <input type="text" class="form-control" id="product" formControlName="product" readonly>
+                   </div>
+                   <div class="form-group">
+                    <label for="client">Client</label>
+                    <input type="text" class="form-control" id="client" formControlName="client" readonly>
+                 </div>
+                 
+                       <div class="form-group">
+                          <label for="title">Title</label>
+                          <input type="text" class="form-control" id="title" formControlName="title">
+                          <div>
+                             <div *ngIf="editFeedbackForm.get('title').touched">
+                                <div *ngIf="editFeedbackForm.hasError('required', ['title'])">
+                                   This field is required.
+                                </div>   
+                             </div>
+                          </div>
+                       </div>
+                       
+                       <div class="form-group">
+                        <label for="content">Content</label>
+                        <p-editor formControlName="content" [style]="{'height':'320px'}"></p-editor>
+                        <div>
+                           <div *ngIf="editFeedbackForm.get('content').touched">
+                              <div *ngIf="editFeedbackForm.hasError('required', ['content'])">
+                                 This field is required.
+                              </div>   
+                           </div>
+                        </div>
+                     </div>              
+                       <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="status" formControlName="status">
+                        <label class="form-check-label" for="status">Active</label>
+                     </div>
+                    </div>
+                    <div class="card-footer">
+                       <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                 </form>
+                </div>                
+              </div>             
+             </div>                  
+        </div>
+     </div>
+  </section>
+  </div>
+  <p-dialog header="Update" [(visible)]="display">
+    Done
+ </p-dialog>

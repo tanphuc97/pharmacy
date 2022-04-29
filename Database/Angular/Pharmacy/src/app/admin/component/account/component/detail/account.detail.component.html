@@ -1,0 +1,53 @@
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+           <ng-template pTemplate="left">    
+             <button pButton pRipple label="List" icon="pi pi-bars" class="p-button-success mr-2" (click)="backToList()"></button>
+             <button pButton pRipple label="Edit" icon="pi pi-pencil" class="p-button-success mr-2" (click)="update()"></button>    
+   </ng-template>
+   </p-toolbar>
+   
+   
+   
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row justify-content-around">
+            <div class="col-md-11">
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Account Detail</h3>
+                  </div>
+                  <div>                                     
+                     <div class="card-body"> 
+                       <div class="form-group">
+                         <label for="name">Account ID</label>
+                         <input type="text" class="form-control" id="id" value="{{account.id}}" readonly>
+                      </div>
+ 
+                        <div class="form-group">
+                           <label for="userename">Username</label>
+                           <input type="text" class="form-control" id="userename" value="{{account.userename}}" readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="email">Email</label>
+                           <input type="text" class="form-control" id="email" value="{{account.email}}" readonly>
+                        </div>
+                        <div class="form-group">
+                           <label for="role">Role</label>
+                         <input type="text" class="form-control" id="role" value="{{account.role}}" readonly>
+                      </div>
+                                              
+                      <div>
+                        <label for="status">Status</label>
+                        <input type="text" class="form-control" id="status" *ngIf="account.status; else elseBlock" value="Active" readonly>
+                        <ng-template #elseBlock><input type="text" class="form-control" id="status" value="Inactive" readonly></ng-template>
+                        </div> 
+                        <br>                     
+                        
+                     </div>
+                 </div>                
+               </div>             
+              </div>                  
+         </div>
+      </div>
+   </section>
+   </div>

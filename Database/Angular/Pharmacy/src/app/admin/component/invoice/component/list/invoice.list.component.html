@@ -1,0 +1,55 @@
+  
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+               
+       </ng-template>
+       <ng-template pTemplate="right">
+           <input pInputText type="text" placeholder="Search invoice id/ client..." [(ngModel)]="keyword"> &nbsp;    
+           <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="invoices" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Invoice List</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+            <th pSortableColumn="id">Invoice ID <p-sortIcon field="id"></p-sortIcon></th>
+               <th pSortableColumn="client">Client <p-sortIcon field="client"></p-sortIcon></th>
+               <th pSortableColumn="created">Created <p-sortIcon field="created"></p-sortIcon></th>
+               <th></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-invoice>
+           <tr>
+            <td>{{invoice.id}}</td>
+               <td>{{invoice.clientId}}</td>
+               <td>{{invoice.created}}</td>
+               <td>
+                  <button pButton pRipple icon="pi pi-folder-open" class="p-button-rounded p-button-success mr-2" (click)="detail(invoice.id, invoice.clientId)"></button>
+               </td>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+           <div class="flex align-items-center justify-content-between">
+               In total there are {{invoices ? invoices.length : 0 }} invoices.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>

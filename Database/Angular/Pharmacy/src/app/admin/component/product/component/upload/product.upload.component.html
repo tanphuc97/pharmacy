@@ -1,0 +1,41 @@
+<div class="col-md-1 mb-4">
+   <button type="button" class="btn bg-gradient-success btn-block" (click)="backToList()"><i class="fa fa-bars mr-2"></i>List</button>
+</div>
+
+<section class="content">
+   <div class="container-fluid">
+      <div class="row justify-content-around">
+         <div class="col-md-6">
+            <div class="card card-primary">
+               <div class="card-header">
+                  <h3 class="card-title">Upload Product Photos</h3>
+               </div>
+               <div>
+                                  
+                  <div class="card-body">                     
+                     <div class="form-group">
+                        <label for="inputFile">Files input</label>
+                        <div class="input-group">
+                           <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="inputFile" multiple (change)="selectFile($event)">
+                              <label class="custom-file-label" for="inputFile">Choose files ...</label>
+                             
+                           </div>     
+                           <div class="text-center px-5 py-1">
+                              <img [src]="url" height="200px" widtd="200px"><br>
+                          </div>                       
+                        </div>
+                     </div>
+                  </div>
+                  <div class="card-footer">
+                     <input type="button" class="btn btn-primary" value="Upload" (click)="upload()">
+                  </div>
+               
+              </div>                
+            </div>             
+           </div>                  
+      </div>
+   </div>
+</section>
+
+    

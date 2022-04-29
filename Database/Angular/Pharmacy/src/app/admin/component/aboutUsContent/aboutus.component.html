@@ -1,0 +1,65 @@
+
+   <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+       <div class="container-fluid">
+          <div class="row mb-2">
+             <div class="col-sm-6">
+                <h1 class="m-0">About Us Page Management</h1>
+             </div>
+          </div>
+          <!-- /.row -->
+       </div>
+
+       
+       <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <div class="card">
+      <p-toolbar styleClass="mb-2">
+              
+      </p-toolbar>
+      
+      
+      
+      <section class="content">
+         <div class="container-fluid">
+            <div class="row justify-content-around">
+               <div class="col-md-11">
+                  <div class="card card-primary">
+                     <div class="card-header">
+                        <h3 class="card-title">About Us Content</h3>
+                     </div>
+                     <div>
+                     <form method="put" [formGroup]="editAboutUsForm" (ngSubmit)="update()">                   
+                        <div class="card-body">     
+                            <div class="form-group">
+                            <label for="content">Content</label>
+                            <p-editor formControlName="content" [style]="{'height':'400px'}"></p-editor>
+                            <div>
+                               <div *ngIf="editAboutUsForm.get('content').touched">
+                                  <div *ngIf="editAboutUsForm.hasError('required', ['content'])">
+                                     This field is required.
+                                  </div>   
+                               </div>
+                            </div>
+                         </div>              
+                           
+                        </div>
+                        <div class="card-footer">
+                           <button type="submit" class="btn btn-primary">Update</button>
+                        </div>
+                     </form>
+                    </div>                
+                  </div>             
+                 </div>                  
+            </div>
+         </div>
+      </section>
+      </div>
+      <p-dialog header="Update" [(visible)]="display">
+        Done
+     </p-dialog>
+    <!-- /.content -->
+ </div>

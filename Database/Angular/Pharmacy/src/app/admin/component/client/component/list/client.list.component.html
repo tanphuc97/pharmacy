@@ -1,0 +1,71 @@
+  
+<div class="card">
+   <p-toolbar styleClass="mb-2">
+       <ng-template pTemplate="left">
+               
+       </ng-template>
+       <ng-template pTemplate="right">
+           <input pInputText type="text" placeholder="Search name..." [(ngModel)]="keyword"> &nbsp;    
+           <button type="button" class="btn bg-gradient-success btn-block" (click)="search()"><i class="fa fa-search"></i></button>    
+       </ng-template>
+   </p-toolbar> 
+
+
+   <section class="content">
+       <div class="container-fluid">
+          <div class="row justify-content-around">
+               <div class="col-md-12">
+                   <p-table  #dt [value]="clients" [rows]="10" [paginator]="true" [globalFilterFields]="['name','country.name','representative.name','status']" responsiveLayout="scroll"
+       [rowHover]="true" dataKey="id"
+       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true">
+       <ng-template pTemplate="caption">
+           <div class="flex align-items-center justify-content-between">
+               <h5 class="m-0">Client List</h5>                
+           </div>
+       </ng-template>
+       <ng-template pTemplate="header">
+           <tr>
+            <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+               <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+               <th pSortableColumn="address">Address <p-sortIcon field="address"></p-sortIcon></th>   
+               <th pSortableColumn="city">City <p-sortIcon field="city"></p-sortIcon></th>
+               <th pSortableColumn="country">Country <p-sortIcon field="country"></p-sortIcon></th>
+               <th pSortableColumn="emailAddress">Email Address <p-sortIcon field="emailAddress"></p-sortIcon></th>
+               <th pSortableColumn="phone">Phone <p-sortIcon field="phone"></p-sortIcon></th>
+               <th></th>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="body" let-client>
+           <tr>
+            <td>{{client.id}}</td>
+               <td>{{(client.name.length>50)? (client.name | slice:0:50)+'...':(client.name)}}</td>               
+               <td>{{(client.address.length>50)? (client.address | slice:0:50)+'...':(client.address)}}</td>
+               <td>{{(client.city.length>50)? (client.city | slice:0:50)+'...':(client.city)}}</td>
+               
+                  <td>{{(client.country.length>50)? (client.country | slice:0:50)+'...':(client.country)}}</td>
+                  <td>{{(client.emailAddress.length>50)? (client.emailAddress | slice:0:50)+'...':(client.emailAddress)}}</td>
+                  <td>{{(client.phone.length>50)? (client.phone | slice:0:50)+'...':(client.phone)}}</td>
+               <td>
+                  <button pButton pRipple icon="pi pi-folder-open" class="p-button-rounded p-button-success mr-2" (click)="detail(client.id)"></button>
+                   <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="update(client.id)"></button>
+                   <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning" (click)="delete(client.id)"></button>
+               </td>
+           </tr>
+       </ng-template>
+       <ng-template pTemplate="summary">
+           <div class="flex align-items-center justify-content-between">
+               In total there are {{clients ? clients.length : 0 }} clients.
+           </div>
+       </ng-template>
+   </p-table>
+               </div>                  
+          </div>
+       </div>
+    </section>
+
+</div>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-dialog header="Delete" [(visible)]="display">
+   Cannot delete
+</p-dialog>
